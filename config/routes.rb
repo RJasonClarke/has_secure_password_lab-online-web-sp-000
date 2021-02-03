@@ -1,13 +1,10 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  class CreateUsers < ActiveRecord::Migration[5.0]
-  def change
-    create_table :users do |t|
-      t.string :name
-      t.string :password_digest
+  root 'welcome#home'
 
-      t.timestamps
-    end
-  end
-end
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  post '/logout', to: 'sessions#destroy'
+
+  resources :users, only: [:new, :create]
 end
